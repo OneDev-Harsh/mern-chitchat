@@ -1,4 +1,18 @@
+function sanitizeInput(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export function createWelcomeEmailTemplate(name, clientURL) {
+
+  const safeName = sanitizeInput(name);
+  const safeURL = sanitizeInput(clientURL);
+
   return `
   <!DOCTYPE html>
   <html lang="en">
