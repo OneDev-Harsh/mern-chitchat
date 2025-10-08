@@ -19,7 +19,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col md:flex-row items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100 p-6 rounded-3xl">
+    <div className="relative min-h-[600px] flex flex-col md:flex-row items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-slate-100 p-7 rounded-3xl">
 
       {/* ✨ Animated glowing border */}
       <div className="absolute inset-0 rounded-3xl p-[2px] bg-gradient-to-r from-primary via-secondary to-primary animate-gradient-move"></div>
