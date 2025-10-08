@@ -11,7 +11,7 @@ function ChatPage() {
   const { activeTab, selectedUser } = useChatStore();
 
   return (
-    <div className="relative w-full max-w-6xl h-[85vh] md:h-[800px] mx-auto flex rounded-3xl overflow-hidden border border-slate-700/30 bg-slate-900/40 backdrop-blur-md shadow-2xl animate-fade-in">
+    <div className="relative w-full max-w-9xl h-[85vh] md:h-[700px] mx-auto flex rounded-3xl overflow-hidden border border-slate-700/30 bg-slate-900/40 backdrop-blur-md shadow-2xl animate-fade-in">
 
       {/* 🌈 Accent Glow Backgrounds */}
       <div className="absolute -top-20 -left-20 w-60 h-60 bg-primary/30 blur-[100px] rounded-full pointer-events-none"></div>
