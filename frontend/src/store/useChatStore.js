@@ -1,7 +1,10 @@
 import { axiosInstance } from "../lib/axios";
 import { create } from 'zustand';
+import { persist } from "zustand/middleware";
 
-export const useChatStore = create((set, get) => ({
+export const useChatStore = create(
+    persist(
+        (set, get) => ({
     allContacts: [],
     chats: [],
     messages: [],
@@ -9,10 +12,10 @@ export const useChatStore = create((set, get) => ({
     selectedUser: null,
     isUsersLoading: false,
     isMessagesLoading: false,
-    isSoundEnabled: localStorage.getItem("isSoundEnabled") === true,
+    isSoundEnabled: localStorage.getItem("isSoundEnabled") === "true" ? true : false,
 
     toggleSound: () => {
-        localStorage.setItem(isSoundEnabled, !get().isSoundEnabled);
+        localStorage.setItem("isSoundEnabled", !get().isSoundEnabled.toString());
         set({isSoundEnabled: !get().isSoundEnabled});
     },
 
@@ -42,4 +45,10 @@ export const useChatStore = create((set, get) => ({
             set({isUsersLoading: false});
         }
     },
-}))
+    }),
+    {
+        name: "auth-storage", // storage key
+        getStorage: () => localStorage, // persist in localStorage
+    }
+    )
+)
