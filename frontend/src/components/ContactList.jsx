@@ -4,9 +4,11 @@ import UsersLoadingSkeleton from "./UsersLoadingSkeleton";
 import NoChatsFound from "./NoChatsFound";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageSquare } from "lucide-react";
+import { useAuthStore } from "../store/useAuthStore";
 
 function ContactList() {
   const { getAllContacts, allContacts, isUsersLoading, setSelectedUser, selectedUser } = useChatStore();
+  const {onlineUsers} = useAuthStore();
 
   useEffect(() => {
     getAllContacts();
@@ -40,7 +42,7 @@ function ContactList() {
                 className="flex items-center gap-3 flex-1 min-w-0"
               >
                 {/* Avatar */}
-                <div className="avatar online">
+                <div className={`avatar ${onlineUsers.includes(user._id) ? "online" : "offline"}`}>
                   <div className="w-12 rounded-full border border-slate-600/50">
                     <img
                       src={user.profilePic || "/avatar.png"}

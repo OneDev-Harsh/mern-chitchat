@@ -3,9 +3,11 @@ import { useChatStore } from "../store/useChatStore";
 import UsersLoadingSkeleton from "./UsersLoadingSkeleton";
 import NoChatsFound from "./NoChatsFound";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAuthStore } from "../store/useAuthStore";
 
 function ChatsList() {
   const { getMyChatPartners, chats, isUsersLoading, setSelectedUser, selectedUser } = useChatStore();
+  const {onlineUsers} = useAuthStore();
 
   useEffect(() => {
     getMyChatPartners();
@@ -35,7 +37,7 @@ function ChatsList() {
                 }`}
             >
               {/* Avatar */}
-              <div className="avatar online">
+              <div className={`avatar ${onlineUsers.includes(chat._id) ? "online" : "offline"}`}>
                 <div className="w-12 rounded-full border border-slate-600/50">
                   <img
                     src={chat.profilePic || "/avatar.png"}

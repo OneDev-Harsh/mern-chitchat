@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useChatStore } from "../store/useChatStore";
 import { X } from "lucide-react";
+import { useAuthStore } from "../store/useAuthStore";
 
 function ChatHeader() {
   const { selectedUser, setSelectedUser } = useChatStore();
+  const {onlineUsers} = useAuthStore();
 
   if (!selectedUser) return null;
 
@@ -21,7 +23,7 @@ function ChatHeader() {
       
       {/* Left: Contact Name */}
       <div className="flex items-center gap-3">
-        <div className="avatar online">
+        <div className={`avatar ${onlineUsers.includes(selectedUser._id) ? "online" : "offline"}`}>
           <div className="w-12 h-12 rounded-full border border-slate-600/50">
             <img
               src={selectedUser.profilePic || "/avatar.png"}
@@ -33,6 +35,15 @@ function ChatHeader() {
         <h2 className="text-lg font-semibold text-slate-100 truncate">
           {selectedUser.fullName}
         </h2>
+        <span
+        className={`text-sm ${
+          onlineUsers.includes(selectedUser._id)
+            ? "text-green-400"
+            : "text-slate-400"
+        }`}
+      >
+        {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
+      </span>
       </div>
 
       {/* Right: Close Chat */}
