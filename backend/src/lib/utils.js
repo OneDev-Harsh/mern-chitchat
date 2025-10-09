@@ -1,16 +1,26 @@
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const generateToken = (userId, res) => {
-    const token = jwt.sign({userId}, process.env.JWT_SECRET, {
-        expiresIn: "7d"
-    })
+  const { JWT_SECRET } = process.env;
+  if (!JWT_SECRET) {
+    throw new Error("JWT_SECRET is not configured");
+  }
 
-    res.cookie("jwt", token, {
-        maxAge: 7*24*60*60*1000,
-        httpOnly: true,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV==="development"? false:true,
-    })
+  const token = jwt.sign({ userId }, JWT_SECRET, {
+    expiresIn: "7d",
+  });
 
-    return token
-}
+  res.cookie("jwt", token, {
+    maxAge: 7 * 24 * 60 * 60 * 1000, // MS
+    httpOnly: true, // prevent XSS attacks: cross-site scripting
+    sameSite: "strict", // CSRF attacks
+    secure: process.env.NODE_ENV === "development" ? false : true,
+  });
+
+  return token;
+};
+
+// http://localhost
+// https://dsmakmk.com

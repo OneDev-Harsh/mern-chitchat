@@ -3,12 +3,12 @@ import dotenv from "dotenv"
 import path from "path"
 import cookieParser from 'cookie-parser'
 import cors from "cors";
+import { app, server } from "./lib/socket.js";
 
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
 import { connectDB } from "./lib/db.js";
 
-const app = express()
 dotenv.config()
 const __dirname = path.resolve()
 
@@ -28,7 +28,7 @@ if(process.env.NODE_ENV === "production"){
 }
 
 const PORT = process.env.PORT
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server has been hosted on http://localhost:${PORT}`)
     connectDB();
 })
